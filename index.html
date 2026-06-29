@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRUTAL_AUTH</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div id="login-view" class="brutal-container">
+        <h1>SYSTEM_LOGIN</h1>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username">IDENTIFIER [USERNAME]</label>
+                <input type="text" id="username" required placeholder="ENTER USERNAME">
+            </div>
+            <div class="input-group">
+                <label for="password">SECRET [PASSWORD]</label>
+                <input type="password" id="password" required placeholder="ENTER PASSWORD">
+            </div>
+            <button type="submit" class="brutal-btn">AUTHENTICATE</button>
+        </form>
+    </div>
+
+    <div id="logout-view" class="brutal-container hidden">
+        <h1>ACCESS_GRANTED</h1>
+        <p>WELCOME TO THE MAINFRAME, <span id="user-display" class="highlight">USER</span>.</p>
+        <button id="logout-btn" class="brutal-btn logout-variant">TERMINATE SESSION</button>
+    </div>
+
+    <script src="script.js">
+
+
+        // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBEHEtvopzjFVuoSX23lanrYZKTPqCYv78",
+  authDomain: "loginlogout-e2a47.firebaseapp.com",
+  projectId: "loginlogout-e2a47",
+  storageBucket: "loginlogout-e2a47.firebasestorage.app",
+  messagingSenderId: "488376977117",
+  appId: "1:488376977117:web:054c1dc1b44692dd43fd34",
+  measurementId: "G-N2CT1RNQ7R"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+        // Grab DOM elements
+const loginView = document.getElementById('login-view');
+const logoutView = document.getElementById('logout-view');
+const loginForm = document.getElementById('login-form');
+const logoutBtn = document.getElementById('logout-btn');
+const usernameInput = document.getElementById('username');
+const userDisplay = document.getElementById('user-display');
+
+// Handle Login
+loginForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop the page from reloading
+    
+    // Get the username and make it uppercase to match the style
+    const username = usernameInput.value.toUpperCase();
+    
+    // Switch views
+    loginView.classList.add('hidden');
+    logoutView.classList.remove('hidden');
+    
+    // Display the username
+    userDisplay.textContent = username;
+    
+    // Clear the form inputs for next time
+    loginForm.reset();
+});
+
+// Handle Logout
+logoutBtn.addEventListener('click', function() {
+    // Switch views back to login
+    logoutView.classList.add('hidden');
+    loginView.classList.remove('hidden');
+});
+    </script>
+
+</body>
+</html>
